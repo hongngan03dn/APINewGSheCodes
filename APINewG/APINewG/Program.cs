@@ -1,3 +1,6 @@
+using APINewG.Entities;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -11,6 +14,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddCors(p => p.AddPolicy("MyCors", build => {
     build.WithOrigins("*").AllowAnyHeader().AllowAnyMethod();
 }));
+builder.Services.AddDbContext<testpbldbContext>(option => option.UseSqlServer
+    (builder.Configuration.GetConnectionString("MyAzureConnection")));
 
 
 var app = builder.Build();
