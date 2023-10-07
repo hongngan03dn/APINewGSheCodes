@@ -1,4 +1,5 @@
 ﻿using APINewG.Entities;
+using APINewG.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,17 +9,18 @@ namespace APINewG.Controllers
     [ApiController]
     public class RolesController : ControllerBase
     {
-        private readonly testpbldbContext _context;
+        private readonly IRoleRepository _roleRepository;
 
-        public RolesController(testpbldbContext ctx) 
+        public RolesController(IRoleRepository roleRepository) 
         {
-            _context = ctx;
+            this._roleRepository = roleRepository;
         }
 
         [HttpGet]
-        public IActionResult GetAllRoles()
+        public async Task<IActionResult> GetAllRoles()
         {
-            return Ok(_context.Roles.ToList());
+            var result = await _roleRepository.GetAllRoles();
+            return Ok(result);
         }
     }
 }
