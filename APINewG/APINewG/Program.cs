@@ -19,13 +19,16 @@ builder.Services.AddDbContext<testpbldbContext>(option => option.UseSqlServer
     (builder.Configuration.GetConnectionString("MyAzureConnection")));
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+builder.Services.AddScoped<ITagRepository, TagRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 
+app.UseSwagger();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
+    
     app.UseSwaggerUI();
 }
 

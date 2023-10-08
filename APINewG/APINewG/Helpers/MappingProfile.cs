@@ -9,6 +9,7 @@ namespace APINewG.Helpers
         public MappingProfile() 
         {
             CreateMap<Role, RoleModel>().ReverseMap();
+            CreateMap<TagCategory, TagCategoryModel>().ReverseMap();
         }
     }
 }

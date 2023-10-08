@@ -79,6 +79,8 @@ namespace APINewG.Entities
 
             modelBuilder.Entity<Review>(entity =>
             {
+                entity.Property(e => e.ContentRef).IsUnicode(false);
+
                 entity.Property(e => e.Description)
                     .HasMaxLength(50)
                     .IsUnicode(false);
@@ -98,12 +100,19 @@ namespace APINewG.Entities
 
             modelBuilder.Entity<Tag>(entity =>
             {
-                entity.Property(e => e.Name).HasMaxLength(50);
+                entity.Property(e => e.Name)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
                 entity.HasOne(d => d.IdTagCategoryNavigation)
                     .WithMany(p => p.Tags)
                     .HasForeignKey(d => d.IdTagCategory)
                     .HasConstraintName("FK_IdTagCategory_Tags_TagCategories");
+            });
+
+            modelBuilder.Entity<TagCategory>(entity =>
+            {
+                entity.Property(e => e.Name).IsUnicode(false);
             });
 
             modelBuilder.Entity<User>(entity =>
@@ -123,11 +132,15 @@ namespace APINewG.Entities
                     .HasMaxLength(150)
                     .IsUnicode(false);
 
+                entity.Property(e => e.Introduction).IsUnicode(false);
+
                 entity.Property(e => e.Language)
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Name).HasMaxLength(100);
+                entity.Property(e => e.Name)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Phone)
                     .HasMaxLength(12)
